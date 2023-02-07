@@ -1,0 +1,89 @@
+<template>
+  <v-app>
+    <!-- <v-app-bar
+      app
+      color="danger"
+      dark
+    >
+      <div class="d-flex align-center">
+        <v-img
+          alt="Vuetify Logo"
+          class="shrink mr-2"
+          contain
+          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          transition="scale-transition"
+          width="40"
+        />
+         <v-spacer></v-spacer>
+      <v-btn
+      :v-text="'Pagina Inicial'"
+      text
+      >
+      <router-link to="/">Pagina Inicial</router-link>
+        
+      </v-btn>
+      <v-btn
+      text
+      >
+       <router-link to="/Cadastro">Cadastro</router-link>
+      </v-btn>
+      <v-btn
+      text
+      
+      >
+      <router-link to="/Sobre">Sobre</router-link>
+        
+      </v-btn>
+      </div>
+
+      <v-spacer></v-spacer>
+
+    </v-app-bar> -->
+
+    <v-main>
+      <Navigation />
+      <router-view/>
+    </v-main>
+  </v-app>
+</template>
+
+<script lang="ts">
+import Vue from 'vue';
+import Navigation from './components/Navigation.vue';
+export default Vue.extend({
+  name: 'App',
+  components :{
+    Navigation
+  },
+  data: () => ({
+    //
+  }),
+});
+</script>
+<style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Quicksand", sans-serif;
+}
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.link {
+  cursor: pointer;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: black;
+}
+.link-light {
+  color: #fff;
+}
+</style>
