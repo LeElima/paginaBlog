@@ -1,20 +1,16 @@
 <template>
 <footer>
-    <div class="container">
+    <div class="espaco">
         <div class="left">
-            <div class="col-1">
+            <div class="coluna-1">
                 <router-link class="header" :to="{name: 'Home'}">Pagina Blog</router-link>
                 <ul>
                     <li>
-                        <a href="#" >
-                            <v-icon class="icone">
-                                mdi-account
-                            </v-icon>
-                        </a>
+                        
                     </li>
                 </ul>
             </div>
-            <div class="col-2">
+            <div class="coluna-2">
                 <ul>
                     <router-link class="link" :to="{name: 'Home'}">Home</router-link>
                     <router-link class="link" :to="{name: 'Blog'}">Blogs</router-link>
@@ -36,11 +32,12 @@
     })
 </script>
 <style lang="scss" scoped>
+
     footer{
         margin-top: auto;
         padding: 100px 25px;
         background-color: #303030;
-        .container{
+        .espaco{
             display: flex;
             flex-direction: column;
             gap: 32px;
@@ -49,7 +46,7 @@
                 gap: 0px;
             }
 
-            > div{
+            >div{
                 display: flex;
                 flex: 1;
             }
@@ -81,9 +78,9 @@
                     list-style: none;
                     display: flex;
                 }
-                .col-1, 
-                .col-2{
-                    gap: 32px;
+                .coluna-1, 
+                .coluna-2{
+                    gap: 32px !important;
                     display: flex;
                     flex: 1;
                     @media(min-width: 800px){
@@ -91,7 +88,7 @@
                     }
                 }
 
-                .col-1{
+                .coluna-1{
                     flex-direction: column;
 
                     h2{
@@ -114,7 +111,7 @@
                     }
                 }
 
-                .col-2{
+                .coluna-2{
                     ul{
                         height: 100%;
                         justify-content: center;
