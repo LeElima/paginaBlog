@@ -2,6 +2,14 @@
   <div>
     <BlogPost :post="telaBemVindo" />
     <BlogPost :post="post" v-for="(post, index) in postBlog" :key="index"/>
+    <div class="blog-card-wrapper">
+      <div class="container">
+        <h3>Veja posts mais recentes!</h3>
+        <div class="blog-cards">
+          <BlogCard :post="post" v-for="(post, index) in blogsCards" :key="index" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -11,7 +19,7 @@ import CobPanel from '@/components/CobPanel.vue';
 import Vue from 'vue';
 import HelloWorld from '../components/HelloWorld.vue';
 import BlogPost from '../components/BlogPost.vue'
-
+import BlogCard from '../components/BlogCard.vue'
 export default Vue.extend({
   name: 'Home',
 
@@ -19,7 +27,8 @@ export default Vue.extend({
     HelloWorld,
     CobPanel,
     CobAutoComplete,
-    BlogPost
+    BlogPost,
+    BlogCard
   },
   data(){
   return{
@@ -40,6 +49,12 @@ export default Vue.extend({
         blogHtml: "Isso é um teste de blog escrito com um texto relativamente grande para visualizar no sistema.",
         blogFotoCapa: "designed-for-everyone"
       },
+    ],
+    blogsCards:[
+      {blogTitulo:"Blog Card 1", blogCardCapa:"stock-1", blogData:"30 de Maio de 2022"},
+      {blogTitulo:"Blog Card 2", blogCardCapa:"stock-2", blogData:"30 de Maio de 2022"},
+      {blogTitulo:"Blog Card 3", blogCardCapa:"stock-3", blogData:"30 de Maio de 2022"},
+      {blogTitulo:"Blog Card 4", blogCardCapa:"stock-4", blogData:"30 de Maio de 2022"},
     ]
   }
   
@@ -49,3 +64,13 @@ export default Vue.extend({
 
 
 </script>
+<style lang="scss" scoped>
+  .blog-card-wrapper{
+    h3{
+      font-weight: 300;
+      font-size: 28px;
+      margin-bottom: 32px;
+    }
+  }
+
+</style>
