@@ -37,34 +37,34 @@ export default Vue.extend({
     BlogCard
   },
   data(){
-    return{
-      telaBemVindo: {
-        titulo: "Seja bem-vindo",
-        blogPost: "Seja bem-vindo a este site desenvolvido para desenvolver as habilidades de Vue",
-        telaBemVindo: true,
-        foto: "coding"
+  return{
+    telaBemVindo: {
+      titulo: "Seja bem-vindo",
+      blogPost: "Seja bem-vindo a este site desenvolvido para desenvolver as habilidades de Vue",
+      telaBemVindo: true,
+      foto: "coding"
+    },
+    postBlog: [
+      {
+        titulo: "Isso é um titulo comum",
+        blogHtml: "Isso é um teste de blog escrito com um texto relativamente grande para visualizar no sistema ",
+        blogFotoCapa: "beautiful-stories"
       },
-      postBlog: [
-        {
-          titulo: "Isso é um titulo comum",
-          blogHtml: "Isso é um teste de blog escrito com um texto relativamente grande para visualizar no sistema ",
-          blogFotoCapa: "beautiful-stories"
-        },
-        {
-          titulo: "Isso é um titulo comum",
-          blogHtml: "Isso é um teste de blog escrito com um texto relativamente grande para visualizar no sistema.",
-          blogFotoCapa: "designed-for-everyone"
-        },
-      ],
-      
-    }
-  
-  },
-  computed:{
-    blogsCards(){
-      return this.$store.state.blogsCards
-    }
+      {
+        titulo: "Isso é um titulo comum",
+        blogHtml: "Isso é um teste de blog escrito com um texto relativamente grande para visualizar no sistema.",
+        blogFotoCapa: "designed-for-everyone"
+      },
+    ],
+    blogsCards:[
+      {blogTitulo:"Blog Card 1", blogCardCapa:"stock-1", blogData:"30 de Maio de 2022"},
+      {blogTitulo:"Blog Card 2", blogCardCapa:"stock-2", blogData:"30 de Maio de 2022"},
+      {blogTitulo:"Blog Card 3", blogCardCapa:"stock-3", blogData:"30 de Maio de 2022"},
+      {blogTitulo:"Blog Card 4", blogCardCapa:"stock-4", blogData:"30 de Maio de 2022"},
+    ]
   }
+  
+},
   
 });
 

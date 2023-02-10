@@ -13,7 +13,7 @@
             <div class="coluna-2">
                 <ul>
                     <router-link class="link" :to="{name: 'Home'}">Home</router-link>
-                    <router-link class="link" :to="{name: 'Blogs'}">Blogs</router-link>
+                    <router-link class="link" :to="{name: 'Blog'}">Blogs</router-link>
                     <router-link class="link" :to="{name: 'NovoPost'}">Criar Post</router-link>
                     <router-link class="link" :to="{name: 'Home'}">Login</router-link>
                 </ul>
