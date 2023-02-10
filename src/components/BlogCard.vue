@@ -1,6 +1,6 @@
 <template>
     <div class="blog-card">
-        <div class="icons">
+        <div v-show="modoEdicao" class="icons">
             <div class="icon">
                 <v-icon class="edit">mdi-pencil</v-icon>
             </div>
@@ -21,7 +21,12 @@
 import Vue from 'vue'
 export default Vue.extend({
     name:"blogCard",
-    props:["post"]
+    props:["post"],
+    computed:{
+        modoEdicao():any{
+            return this.$store.state.modoEdicao;
+        }
+    }
 
 })
 </script>
