@@ -41,9 +41,9 @@
     </v-app-bar> -->
 
     <v-main>
-      <Navigation />
+      <Navigation v-if="navegacao" />
       <router-view/>
-      <FooterVue/>
+      <FooterVue v-if="navegacao"/>
     </v-main>
   </v-app>
 </template>
@@ -60,7 +60,23 @@ export default Vue.extend({
   },
   data: () => ({
     //
+    navegacao: false
   }),
+  methods:{
+    verificarRota(){
+      if(this.$route.name == "Login" ||this.$route.name == "Senha"||this.$route.name == "Registrar"){
+        this.navegacao = false;
+        return;
+      }
+        this.navegacao = true;
+      
+    }
+  },
+  watch:{
+    $route(){
+      this.verificarRota();
+    }
+  }
 });
 </script>
 <style lang="scss">
