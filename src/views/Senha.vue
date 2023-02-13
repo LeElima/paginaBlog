@@ -1,5 +1,7 @@
 <template>
     <div class="reset-password">
+        <Modal v-if="dialogModal" @fechar="fecharModal" />
+        <Loading v-if="dialogCarregar"/>
         <div class="form-wrap">
             <form class="register">
                 <h2>Resetar Senha</h2>
@@ -21,11 +23,26 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Modal from '@/components/Modal.vue'
+import Loading from '@/components/Loading.vue'
 export default Vue.extend({
     name:"Senha",
+    components:{
+        Modal,
+        Loading
+    },
     data(){
         return{
-            email:""
+            email:"",
+            dialogModal:false,
+            dialogCarregar:false,
+            mensagemModal:""
+        }
+    },
+    methods:{
+        fecharModal(){
+            this.dialogModal = !this.dialogModal;
+            this.email="";
         }
     }
 })
