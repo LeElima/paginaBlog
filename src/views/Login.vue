@@ -8,16 +8,17 @@
             <h2>Login</h2>
             <div class="inputs">
                 <div class="input">
-                    <input type="text" placeholder="Email" v-mode="email">
+                    <input type="text" placeholder="Email" v-model="email">
                     <v-icon class="icon">mdi-email</v-icon>
                 </div>
                 <div class="input">
-                    <input type="password" placeholder="Senha" v-mode="senha">
+                    <input type="password" placeholder="Senha" v-model="senha">
                     <v-icon class="icon">mdi-lock</v-icon>
                 </div>
+                <div v-show="erro" class="mensagemErro">{{ mensagemErro }}</div>
             </div>
             <router-link class="forgot-password" :to="{name:'Senha'}">Esqueceu a senha?</router-link>
-            <button>Entrar</button>
+            <button @click.prevent="login">Entrar</button>
             <div class="angle"></div>
         </form>
         <div class="background"></div>
@@ -26,14 +27,32 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import firebase from 'firebase/compat/app';
+
+import 'firebase/compat/auth';
 export default Vue.extend({
     name:"Login",
     data(){
         return{
             email:"",
-            senha:""
+            senha:"",
+            erro: false,
+            mensagemErro: ""
         }
     },
+    methods:{
+      login(){
+          firebase.auth().signInWithEmailAndPassword(this.email, this.senha).then(()=>{
+          this.$router.push({name: "Home"});
+          this.erro = false;
+          this.mensagemErro = "";
+        })
+        .catch(err =>{
+          this.erro = true;
+          this.mensagemErro = err.message
+        })
+      }
+    }
 
 })
 </script>

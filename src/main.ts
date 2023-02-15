@@ -3,7 +3,9 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import vuetify from './plugins/vuetify';
+import firebase from 'firebase/compat/app';
 
+import 'firebase/compat/auth';
 
 const requireComponent = require.context(
   "./components",
@@ -15,9 +17,16 @@ const requireComponent = require.context(
 
 Vue.config.productionTip = false;
 
-new Vue({
-  router,
-  store,
-  vuetify,
-  render: (h) => h(App),
-}).$mount('#app');
+let app:any;
+firebase.auth().onAuthStateChanged(() =>{
+  if(!app){
+    new Vue({
+      router,
+      store,
+      vuetify,
+      render: (h) => h(App),
+    }).$mount('#app');
+  }
+})
+
+

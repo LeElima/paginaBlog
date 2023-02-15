@@ -52,6 +52,9 @@
 import Vue from 'vue';
 import Navigation from './components/Navigation.vue';
 import FooterVue from './components/Footer.vue';
+import firebase from 'firebase/compat/app';
+
+import 'firebase/compat/auth';
 export default Vue.extend({
   name: 'App',
   components :{
@@ -62,6 +65,16 @@ export default Vue.extend({
     //
     navegacao: false
   }),
+  created(){
+    firebase.auth().onAuthStateChanged((user)=>{
+      this.$store.commit("updateUser", user)
+      if(user){
+        this.$store.dispatch("getUsuarioAtual")
+        console.log(this.$store.state.perfilEmail)
+      }
+    })
+    this.verificarRota();
+  },
   methods:{
     verificarRota(){
       if(this.$route.name == "Login" ||this.$route.name == "Senha"||this.$route.name == "Registrar"){
@@ -166,6 +179,12 @@ button,
   pointer-events: none !important;
   cursor: none !important;
   background-color: rgba(128, 128, 128, 0.5) !important;
+}
+
+.mensagemErro {
+  text-align: center;
+  font-size: 12px;
+  color: red;
 }
 
 .blog-card-wrapper{
