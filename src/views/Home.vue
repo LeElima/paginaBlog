@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BlogPost :post="telaBemVindo" />
+    <BlogPost v-if="!user" :post="telaBemVindo" />
     <BlogPost :post="post" v-for="(post, index) in postBlog" :key="index"/>
     <div class="blog-card-wrapper">
       <div class="container">
@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <div class="updates">
+    <div v-if="!user" class="updates">
       <div class="container">
         <h2>Não perca as novidades! Registre-se agora!</h2>
         <router-link class="router-button" to="Registrar">Registar <v-icon class="arrow arrow-light">mdi-arrow-right</v-icon></router-link>
@@ -63,6 +63,9 @@ export default Vue.extend({
   computed:{
     blogsCards(){
       return this.$store.state.blogsCards
+    },
+    user(){
+        return this.$store.state.user
     }
   }
   

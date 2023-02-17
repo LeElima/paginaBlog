@@ -15,7 +15,7 @@
                     <router-link class="link" :to="{name: 'Home'}">Home</router-link>
                     <router-link class="link" :to="{name: 'Blogs'}">Blogs</router-link>
                     <router-link class="link" :to="{name: 'NovoPost'}">Criar Post</router-link>
-                    <router-link class="link" :to="{name: 'Login'}">Login</router-link>
+                    <router-link v-if="!user" class="link" :to="{name: 'Login'}">Login</router-link>
                 </ul>
             </div>
         </div>
@@ -29,6 +29,16 @@
     import Vue from 'vue'
     export default Vue.extend({
         name: 'footer-blog',
+        data(){
+            return{
+
+            }
+        },
+        computed:{
+            user(){
+                return this.$store.state.user
+            }
+        }, 
     })
 </script>
 <style lang="scss" scoped>
