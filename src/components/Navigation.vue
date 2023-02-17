@@ -9,12 +9,49 @@
                     <router-link class="link" :to="{name: 'Home'}">Home</router-link>
                     <router-link class="link" :to="{name: 'Blogs'}">Blog</router-link>
                     <router-link class="link" to="#">Criar Post</router-link>
-                    <router-link class="link" to="Login">Login</router-link>    
+                    <router-link v-if="!user" class="link" to="Login">Login</router-link>    
                 </ul>
+                <div v-if="user" @click="mostrarMenuPerfil($event)" class="perfil" ref="perfil">
+                    <span>{{ $store.state.perfilIniciais }}</span>
+                    <div class="perfil-menu" v-show="menuPerfil">
+                        <div class="infoo">
+                            <p class="iniciais">{{ $store.state.perfilIniciais }}</p>
+                            <div class="right">
+                                <p>{{ $store.state.perfilNome }} {{ $store.state.perfilSobrenome }}</p>
+                                <p>{{ $store.state.perfilUsuario }}</p>
+                                <p>{{ $store.state.perfilEmail }}</p>
+                            </div>
+                        </div>
+                        <div class="options">
+                            <div class="option">
+                                <router-link class="option" to="#">
+                                    <v-icon class="icon">
+                                        mdi-account
+                                    </v-icon>
+                                    <p>Perfil</p>
+                                </router-link>
+                            </div>
+                            <div class="option">
+                                <router-link class="option" to="#">
+                                    <v-icon class="icon">
+                                        mdi-account
+                                    </v-icon>
+                                    <p>Admin</p>
+                                </router-link>
+                            </div>
+                            <div @click="logOut" class="option">
+                                <v-icon class="icon">
+                                    mdi-account
+                                </v-icon>
+                                <p>Sair</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <v-icon @click="abrirMenu" v-show="mobile">
-            mdi-account
-        </v-icon>
+                mdi-account
+            </v-icon>
         </nav>
         
         <!-- <iconeMenu /> -->
@@ -23,13 +60,15 @@
                 <router-link class="link" :to="{name: 'Home'}">Home</router-link>
                 <router-link class="link" :to="{name: 'Blogs'}">Blog</router-link>
                 <router-link class="link" to="#">Criar Post</router-link>
-                <router-link class="link" to="Login">Login</router-link>
+                <router-link v-if="!user" class="link" to="Login">Login</router-link>
             </ul>
         </transition>
     </header>
 </template>
 <script lang="ts">
 import Vue from 'vue'
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 // import iconeMenu from '../assets/Icons/bars-regular.svg'
 export default Vue.extend({
     name: "navigation",
@@ -38,11 +77,17 @@ export default Vue.extend({
     },
     data(){
         return{
+            menuPerfil: false,
             mobile:false,
             mobileNav:false,
             tamanhoJanela:0
         }
     },
+    computed:{
+        user(){
+            return this.$store.state.user
+        }
+    },  
     created(){
         window.addEventListener('resize', this.verificaJanela);
         this.verificaJanela();
@@ -60,6 +105,14 @@ export default Vue.extend({
         },
         abrirMenu(){
             this.mobileNav = !this.mobileNav;
+        },
+        mostrarMenuPerfil(e:any){
+            if(e.target === this.$refs.perfil)
+            this.menuPerfil = !this.menuPerfil;
+        },
+        logOut(){
+            firebase.auth().signOut();
+            window.location.reload();
         }
     }
 })
@@ -112,8 +165,83 @@ export default Vue.extend({
                     margin-right: 0;
                 }
             }
+            .perfil {
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        color: #fff;
+        background-color: #303030;
+        span {
+          pointer-events: none;
         }
+        .perfil-menu {
+          position: absolute;
+          top: 60px;
+          right: 0;
+          width: 250px;
+          background-color: #303030;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+          .infoo {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #fff;
+            .iniciais {
+              position: initial;
+              width: 40px;
+              height: 40px;
+              background-color: #fff;
+              color: #303030;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 50%;
+            }
+            .right {
+              flex: 1;
+              margin-left: 24px;
+              p:nth-child(1) {
+                font-size: 14px;
+              }
+              p:nth-child(2),
+              p:nth-child(3) {
+                font-size: 9px;
+              }
+            }
+          }
+          .options {
+            padding: 15px;
+            .option {
+              text-decoration: none;
+              color: #fff;
+              display: flex;
+              align-items: center;
+              margin-bottom: 12px;
+              .icon {
+                width: 18px;
+                height: auto;
+              }
+              p {
+                font-size: 14px;
+                margin-left: 12px;
+              }
+              &:last-child {
+                margin-bottom: 0px;
+              }
+            }
+          }
+        }
+      }
     }
+    .mobile-user-menu {
+      margin-right: 40px;
+    }
+  }
 
     .menu-icon{
         cursor: pointer;

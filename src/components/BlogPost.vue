@@ -1,5 +1,5 @@
 <template>
-    <div class="blog-wrapper no-user">
+    <div class="blog-wrapper" :class="{'no-user': !user}">
         <div class="blog-content">
             <div>
                 <h2 v-if="post.telaBemVindo">{{ post.titulo }}</h2>
@@ -25,7 +25,17 @@
 import Vue from 'vue'
 export default Vue.extend({
     name:"blogPost",
-    props: ["post"]
+    props: ["post"],
+    data(){
+        return{
+
+        }
+    },
+    computed:{
+        user():any{
+            return this.$store.state.user;
+        }
+    }
 })
 </script>
 <style lang="scss" scoped>
