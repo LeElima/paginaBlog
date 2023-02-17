@@ -24,7 +24,7 @@ export default new Vuex.Store({
     perfilSobrenome: null,
     perfilUsuario: null,
     perfilId: null,
-    perfilIniciais: "",
+    perfilIniciais: "LL",
   },
   mutations: {
     alterarModoEdicao(state, payload){
