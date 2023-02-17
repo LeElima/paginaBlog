@@ -13,7 +13,7 @@
     <div class="updates">
       <div class="container">
         <h2>Não perca as novidades! Registre-se agora!</h2>
-        <router-link class="router-button" to="#">Registar <v-icon class="arrow arrow-light">mdi-arrow-right</v-icon></router-link>
+        <router-link class="router-button" to="Registrar">Registar <v-icon class="arrow arrow-light">mdi-arrow-right</v-icon></router-link>
       </div>
     </div>
   </div>
