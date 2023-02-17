@@ -9,7 +9,7 @@
                     <router-link class="link" :to="{name: 'Home'}">Home</router-link>
                     <router-link class="link" :to="{name: 'Blogs'}">Blog</router-link>
                     <router-link class="link" to="#">Criar Post</router-link>
-                    <router-link class="link" to="#">Login</router-link>    
+                    <router-link class="link" to="Login">Login</router-link>    
                 </ul>
             </div>
             <v-icon @click="abrirMenu" v-show="mobile">
@@ -23,7 +23,7 @@
                 <router-link class="link" :to="{name: 'Home'}">Home</router-link>
                 <router-link class="link" :to="{name: 'Blogs'}">Blog</router-link>
                 <router-link class="link" to="#">Criar Post</router-link>
-                <router-link class="link" to="#">Login</router-link>
+                <router-link class="link" to="Login">Login</router-link>
             </ul>
         </transition>
     </header>
