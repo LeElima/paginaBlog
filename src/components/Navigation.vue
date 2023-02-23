@@ -24,24 +24,24 @@
                         </div>
                         <div class="options">
                             <div class="option">
-                                <router-link class="option" to="#">
-                                    <v-icon class="icon">
+                                <router-link class="option" :to="{name: 'Perfil'}">
+                                    <v-icon class="icon" color="white">
                                         mdi-account
                                     </v-icon>
                                     <p>Perfil</p>
                                 </router-link>
                             </div>
                             <div class="option">
-                                <router-link class="option" to="#">
-                                    <v-icon class="icon">
-                                        mdi-account
+                                <router-link class="option" :to="{name: 'Admin'}">
+                                    <v-icon class="icon" color="white">
+                                        mdi-account-hard-hat
                                     </v-icon>
                                     <p>Admin</p>
                                 </router-link>
                             </div>
                             <div @click="logOut" class="option">
-                                <v-icon class="icon">
-                                    mdi-account
+                                <v-icon class="icon" color="white">
+                                    mdi-exit-run
                                 </v-icon>
                                 <p>Sair</p>
                             </div>

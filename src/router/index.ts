@@ -5,6 +5,8 @@ import Blogs from '../views/Blogs.vue';
 import Login from '../views/Login.vue';
 import Registrar from '../views/Registrar.vue';
 import Senha from '../views/Senha.vue';
+import Perfil from '../views/Perfil.vue';
+import Admin from '../views/Admin.vue';
 
 Vue.use(VueRouter);
 
@@ -47,6 +49,22 @@ const routes: Array<RouteConfig> = [
     component: Senha,
     meta:{
       title:'Senha'
+    }
+  },
+  {
+    path: '/perfil',
+    name: 'Perfil',
+    component: Perfil,
+    meta:{
+      title:'Perfil'
+    }
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin,
+    meta:{
+      title:'Admin'
     }
   },
   
