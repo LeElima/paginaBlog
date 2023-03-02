@@ -8,7 +8,7 @@
                 <ul v-show="!mobile">
                     <router-link class="link" :to="{name: 'Home'}">Home</router-link>
                     <router-link class="link" :to="{name: 'Blogs'}">Blog</router-link>
-                    <router-link class="link" to="#">Criar Post</router-link>
+                    <router-link v-if="admin" class="link" to="#">Criar Post</router-link>
                     <router-link v-if="!user" class="link" to="Login">Login</router-link>    
                 </ul>
                 <div v-if="user" @click="mostrarMenuPerfil($event)" class="perfil" ref="perfil">
@@ -59,7 +59,7 @@
             <ul class="mobile-nav" v-show="mobileNav">
                 <router-link class="link" :to="{name: 'Home'}">Home</router-link>
                 <router-link class="link" :to="{name: 'Blogs'}">Blog</router-link>
-                <router-link class="link" to="#">Criar Post</router-link>
+                <router-link v-if="admin" class="link" to="#">Criar Post</router-link>
                 <router-link v-if="!user" class="link" to="Login">Login</router-link>
             </ul>
         </transition>
@@ -86,6 +86,9 @@ export default Vue.extend({
     computed:{
         user(){
             return this.$store.state.user
+        },
+        admin(){
+            return this.$store.state.perfilAdmin
         }
     },  
     created(){

@@ -39,6 +39,7 @@ export default new Vuex.Store({
       state.perfilNome = doc.data().nome;
       state.perfilSobrenome = doc.data().sobrenome;
       state.perfilUsuario = doc.data().usuario;
+      state.perfilAdmin = doc.data().administrador;
     },
     mudarNome(state, payload){
       state.perfilNome = payload;
