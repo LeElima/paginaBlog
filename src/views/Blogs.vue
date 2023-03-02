@@ -1,7 +1,7 @@
 <template>
   <div class="blog-card-wrapper">
     <div class="blog-cards container">
-        <div class="toggle-edit">
+        <div v-if="admin" class="toggle-edit">
             <span>Modo edição</span>
             <input type="checkbox" v-model="modoEdicao">
         </div>
@@ -29,6 +29,9 @@ export default Vue.extend( {
             set(payload){
                 this.$store.commit("alterarModoEdicao", payload);
             }
+        },
+        admin(){
+          return this.$store.state.perfilAdmin;
         }
     },
     beforeDestroy(){

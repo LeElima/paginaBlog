@@ -68,7 +68,8 @@ export default Vue.extend({
                     nome: this.nome,
                     sobrenome: this.sobrenome,
                     usuario: this.username,
-                    email: this.email
+                    email: this.email,
+                    administrador: false
                 });
                 this.$router.push({name: 'Home'});
                 return;
