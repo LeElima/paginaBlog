@@ -5,6 +5,8 @@ import Blogs from '../views/Blogs.vue';
 import Login from '../views/Login.vue';
 import Registrar from '../views/Registrar.vue';
 import Senha from '../views/Senha.vue';
+import Perfil from '../views/Perfil.vue';
+import Admin from '../views/Admin.vue';
 
 Vue.use(VueRouter);
 
@@ -12,7 +14,6 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Home',
-    // component: Home,
     component: Home,
     meta:{
       title:'Home'
@@ -21,9 +22,6 @@ const routes: Array<RouteConfig> = [
   {
     path: '/blogs',
     name: 'Blogs',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: Blogs,
     meta:{
       title:'Blogs'
@@ -32,9 +30,6 @@ const routes: Array<RouteConfig> = [
   {
     path: '/login',
     name: 'Login',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: Login,
     meta:{
       title:'Login'
@@ -43,9 +38,6 @@ const routes: Array<RouteConfig> = [
   {
     path: '/registrar',
     name: 'Registrar',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: Registrar,
     meta:{
       title:'Registrar'
@@ -54,12 +46,25 @@ const routes: Array<RouteConfig> = [
   {
     path: '/senha',
     name: 'Senha',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: Senha,
     meta:{
       title:'Senha'
+    }
+  },
+  {
+    path: '/perfil',
+    name: 'Perfil',
+    component: Perfil,
+    meta:{
+      title:'Perfil'
+    }
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin,
+    meta:{
+      title:'Admin'
     }
   },
   

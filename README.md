@@ -1,4 +1,7 @@
-# vue_basico
+# paginaBlog
+Site com CRUD completo de um blog, onde é possível incluir posts novos, editar e excluir.<br/>
+É possível também se registrar, fazer login e recuperar senha.
+Todo o sitema é desenvolvido em Vue e com conexão com firebase.
 
 ## Project setup
 ```

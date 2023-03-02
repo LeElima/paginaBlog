@@ -19,12 +19,12 @@ export default new Vuex.Store({
     modoEdicao:null,
     user: null,
     perfilAdmin: null,
-    perfilEmail: null,
-    perfilNome: null ,
-    perfilSobrenome: null,
-    perfilUsuario: null,
-    perfilId: null,
-    perfilIniciais: "LL",
+    perfilEmail: "",
+    perfilNome: "" ,
+    perfilSobrenome: "",
+    perfilUsuario: "",
+    perfilId: "",
+    perfilIniciais: "",
   },
   mutations: {
     alterarModoEdicao(state, payload){
@@ -39,19 +39,41 @@ export default new Vuex.Store({
       state.perfilNome = doc.data().nome;
       state.perfilSobrenome = doc.data().sobrenome;
       state.perfilUsuario = doc.data().usuario;
+      state.perfilAdmin = doc.data().administrador;
     },
-    // setPerfilIniciais(state) {
-    //   state.perfilIniciais = state.perfilNome
-    //     state?.perfilNome?.match(/(\b\S)?/g).join("") + state.perfilSobrenome?.match(/(\b\S)?/g).join("");
-    // },
+    mudarNome(state, payload){
+      state.perfilNome = payload;
+    },
+    mudarSobrenome(state, payload){
+      state.perfilSobrenome = payload;
+    },
+    mudarUsuario(state, payload){
+      state.perfilUsuario = payload;
+    },
+    setPerfilIniciais(state) {
+      if(state.perfilNome != null && state.perfilSobrenome != null){
+        var nome = state?.perfilNome || ""
+        var sobrenome = state?.perfilSobrenome || ""
+        state.perfilIniciais =  nome.match(/(\b\S)?/g)!.join("") + sobrenome.match(/(\b\S)?/g)!.join("");
+      }
+      
+    },
   },
   actions: {
     async getUsuarioAtual({commit}){
       const dataBase = db.collection("users").doc(firebase.auth().currentUser?.uid);
       const resultadoDb = await dataBase.get();
       commit("setPerfilInfo", resultadoDb);
-      //commit("setPerfilIniciais");
-      console.log(resultadoDb)
+      commit("setPerfilIniciais");
+    },
+    async atualizarUsuario({commit, state}){
+      const dataBase = await  db.collection("users").doc(state.perfilId);
+      await dataBase.update({
+        nome: state.perfilNome,
+        sobrenome: state.perfilSobrenome,
+        usuario: state.perfilUsuario,
+      });
+      commit("setPerfilIniciais")
     }
   },
   modules: {
