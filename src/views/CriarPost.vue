@@ -1,6 +1,6 @@
 <template>
   <div class="create-post">
-    <!-- <BlogCoverPreview v-show="this.$store.state.blogPhotoPreview" /> -->
+    <BlogCapaPrevia v-show="this.$store.state.blogPreviaFoto" />
     <Loading v-show="loading" />
     <div class="container">
       <div :class="{ invisible: !error }" class="err-message">
@@ -30,6 +30,7 @@
 
 <script>
 import Loading from "../components/Loading";
+import BlogCapaPrevia from '../components/BlogCapaPrevia'
 import Quill from "quill";
 import { VueEditor } from "vue2-editor";
 window.Quill = Quill;
@@ -52,7 +53,8 @@ export default {
   },
   components: {
     Loading,
-    VueEditor
+    VueEditor,
+    BlogCapaPrevia
   },
   methods: {
     fileChange(){
@@ -63,13 +65,13 @@ export default {
       this.$store.commit("criarArquivoURL", URL.createObjectURL(this.file));
     },
     abrirPrevia(){
-
+      this.$store.commit("abrirFotoPrevia");
     },
     imageHandler(){
 
     },
     uploadBlog(){
-      
+
     }
   },
   computed: {
