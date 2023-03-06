@@ -8,8 +8,8 @@
                 <ul v-show="!mobile">
                     <router-link class="link" :to="{name: 'Home'}">Home</router-link>
                     <router-link class="link" :to="{name: 'Blogs'}">Blog</router-link>
-                    <router-link v-if="admin" class="link" to="#">Criar Post</router-link>
-                    <router-link v-if="!user" class="link" to="Login">Login</router-link>    
+                    <router-link v-if="admin" class="link" :to="{name: 'CriarPost'}">Criar Post</router-link>
+                    <router-link v-if="!user" class="link" :to="{name: 'Login'}">Login</router-link>    
                 </ul>
                 <div v-if="user" @click="mostrarMenuPerfil($event)" class="perfil" ref="perfil">
                     <span>{{ $store.state.perfilIniciais }}</span>
@@ -31,7 +31,7 @@
                                     <p>Perfil</p>
                                 </router-link>
                             </div>
-                            <div class="option">
+                            <div class="option" v-if="admin">
                                 <router-link class="option" :to="{name: 'Admin'}">
                                     <v-icon class="icon" color="white">
                                         mdi-account-hard-hat
@@ -59,8 +59,8 @@
             <ul class="mobile-nav" v-show="mobileNav">
                 <router-link class="link" :to="{name: 'Home'}">Home</router-link>
                 <router-link class="link" :to="{name: 'Blogs'}">Blog</router-link>
-                <router-link v-if="admin" class="link" to="#">Criar Post</router-link>
-                <router-link v-if="!user" class="link" to="Login">Login</router-link>
+                <router-link v-if="admin" class="link" :to="{name: 'CriarPost'}">Criar Post</router-link>
+                <router-link v-if="!user" class="link" :to="{name: 'Login'}">Login</router-link>
             </ul>
         </transition>
     </header>

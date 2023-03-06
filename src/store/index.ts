@@ -16,6 +16,12 @@ export default new Vuex.Store({
       {blogTitulo:"Blog Card 3", blogCardCapa:"stock-3", blogData:"30 de Maio de 2022"},
       {blogTitulo:"Blog Card 4", blogCardCapa:"stock-4", blogData:"30 de Maio de 2022"},
     ],
+    postCarregado: null,
+    blogHTML: "Escreva o conteúdo aqui",
+    blogTitulo: "",
+    blogNomeFoto: "",
+    blogArquivoFotoUrl: null,
+    blogPreviaFoto: false,
     modoEdicao:null,
     user: null,
     perfilAdmin: null,
@@ -27,6 +33,22 @@ export default new Vuex.Store({
     perfilIniciais: "",
   },
   mutations: {
+    novoBlogPost(state, payload) {
+      state.blogHTML = payload;
+    },
+    updateBlogTitulo(state, payload) {
+      state.blogTitulo = payload;
+    },
+    mudarNomeArquivo(state, payload){
+      state.blogNomeFoto = payload;
+    },
+    criarArquivoURL(state, payload){
+      state.blogArquivoFotoUrl = payload;
+    },
+    abrirFotoPrevia(state){
+      state.blogPreviaFoto = !state.blogPreviaFoto;
+    },
+    
     alterarModoEdicao(state, payload){
       state.modoEdicao = payload;
     },

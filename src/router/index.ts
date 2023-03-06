@@ -7,6 +7,7 @@ import Registrar from '../views/Registrar.vue';
 import Senha from '../views/Senha.vue';
 import Perfil from '../views/Perfil.vue';
 import Admin from '../views/Admin.vue';
+import CriarPost from '../views/CriarPost.vue';
 
 Vue.use(VueRouter);
 
@@ -65,6 +66,14 @@ const routes: Array<RouteConfig> = [
     component: Admin,
     meta:{
       title:'Admin'
+    }
+  },
+  {
+    path: '/criar-post',
+    name: 'CriarPost',
+    component: CriarPost,
+    meta:{
+      title:'CriarPost'
     }
   },
   
