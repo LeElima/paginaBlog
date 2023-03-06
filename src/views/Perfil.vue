@@ -5,7 +5,7 @@
       <h2>Configurações da Conta</h2>
       <div class="profile-info">
         <div class="initials">{{ $store.state.perfilIniciais }}</div>
-        <div class="admin-badge">
+        <div v-if="admin" class="admin-badge">
           
           <v-icon class="icone " color="white">mdi-account-hard-hat</v-icon>
           <span>Admin</span>
@@ -72,8 +72,11 @@ export default Vue.extend({
             },
         },
         email():any {
-        return this.$store.state.perfilEmail
+          return this.$store.state.perfilEmail
         },
+        admin(){
+          return this.$store.state.perfilAdmin
+        }
     },
     methods: {
         updateProfile() {
