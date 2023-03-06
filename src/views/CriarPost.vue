@@ -7,22 +7,22 @@
         <p><span>Error:</span>{{ this.errorMsg }}</p>
       </div>
       <div class="blog-info">
-        <input type="text" placeholder="Enter Blog Title" v-model="blogTitle" />
+        <input type="text" placeholder="Escolha Um Título" v-model="blogTitulo" />
         <div class="upload-file">
-          <label for="blog-photo">Upload Cover Photo</label>
-          <input type="file" ref="blogPhoto" id="blog-photo" @change="fileChange" accept=".png, .jpg, ,jpeg" />
-          <button @click="openPreview" class="preview" :class="{ 'button-inactive': !this.$store.state.blogPhotoFileURL }">
-            Preview Photo
+          <label for="blog-photo">Upload Foto Capa</label>
+          <input type="file" ref="blogFoto" id="blog-photo" @change="fileChange" accept=".png, .jpg, ,jpeg" />
+          <button @click="abrirPrevia" class="preview" :class="{ 'button-inactive': !this.$store.state.blogArquivoFotoUrl }">
+            Previa
           </button>
-          <span>File Chosen: {{ this.$store.state.blogPhotoName }}</span>
+          <span>Arquivo selecionado: {{ this.$store.state.blogNomeFoto }}</span>
         </div>
       </div>
       <div class="editor">
-        <vue-editor  />
+        <vue-editor :editorOptions="editorSettings" v-model="blogHTML" useCustomImageHandler @image-added="imageHandler" />
       </div>
       <div class="blog-actions">
-        <button @click="uploadBlog">Publish Blog</button>
-        <router-link class="router-button" :to="{ name: 'BlogPreview' }">Post Preview</router-link>
+        <button @click="uploadBlog">Publicar Blog</button>
+        <router-link class="router-button" :to="{ name: 'BlogPreview' }">Prévia Post</router-link>
       </div>
     </div>
   </div>
@@ -55,12 +55,46 @@ export default {
     VueEditor
   },
   methods: {
-    
+    fileChange(){
+      this.file = this.$refs.blogFoto.files[0];
+      console.log(this.file)
+      const nomeArquivo = this.file.name;
+      this.$store.commit("mudarNomeArquivo", nomeArquivo);
+      this.$store.commit("criarArquivoURL", URL.createObjectURL(this.file));
+    },
+    abrirPrevia(){
+
+    },
+    imageHandler(){
+
+    },
+    uploadBlog(){
+      
+    }
   },
   computed: {
-    profileId() {
-      return this.$store.state.profileId;
-    }
+    perfilId() {
+      return this.$store.state.perfilId;
+    },
+    blogNomeFoto() {
+      return this.$store.state.blogNomeFoto;
+    },
+    blogTitulo: {
+      get() {
+        return this.$store.state.blogTitulo;
+      },
+      set(payload) {
+        this.$store.commit("updateBlogTitulo", payload);
+      },
+    },
+    blogHTML: {
+      get() {
+        return this.$store.state.blogHTML;
+      },
+      set(payload) {
+        this.$store.commit("novoBlogPost", payload);
+      },
+    },
   },
 };
 </script>
