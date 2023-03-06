@@ -21,7 +21,7 @@ export default new Vuex.Store({
     blogTitulo: "",
     blogNomeFoto: "",
     blogArquivoFotoUrl: null,
-    blogPreviaFoto: null,
+    blogPreviaFoto: false,
     modoEdicao:null,
     user: null,
     perfilAdmin: null,
@@ -45,6 +45,10 @@ export default new Vuex.Store({
     criarArquivoURL(state, payload){
       state.blogArquivoFotoUrl = payload;
     },
+    abrirFotoPrevia(state){
+      state.blogPreviaFoto = !state.blogPreviaFoto;
+    },
+    
     alterarModoEdicao(state, payload){
       state.modoEdicao = payload;
     },
