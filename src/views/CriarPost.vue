@@ -22,13 +22,15 @@
       </div>
       <div class="blog-actions">
         <button @click="uploadBlog">Publicar Blog</button>
-        <router-link class="router-button" :to="{ name: 'BlogPreview' }">Prévia Post</router-link>
+        <router-link class="router-button" :to="{ name: 'PostPrevia' }">Prévia Post</router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/storage';
 import Loading from "../components/Loading";
 import BlogCapaPrevia from '../components/BlogCapaPrevia'
 import Quill from "quill";
@@ -67,8 +69,23 @@ export default {
     abrirPrevia(){
       this.$store.commit("abrirFotoPrevia");
     },
-    imageHandler(){
-
+    imageHandler(file, Editor, cursorLocation, resetUploader) {
+      const storageRef = firebase.storage().ref();
+      const docRef = storageRef.child(`documents/blogPostFotos/${file.name}`);
+      docRef.put(file).on(
+        "state_changed",
+        (snapshot) => {
+          console.log(snapshot);
+        },
+        (err) => {
+          console.log(err);
+        },
+        async () => {
+          const downloadURL = await docRef.getDownloadURL();
+          Editor.insertEmbed(cursorLocation, "image", downloadURL);
+          resetUploader();
+        }
+      );
     },
     uploadBlog(){
 

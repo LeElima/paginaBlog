@@ -8,7 +8,7 @@ import Senha from '../views/Senha.vue';
 import Perfil from '../views/Perfil.vue';
 import Admin from '../views/Admin.vue';
 import CriarPost from '../views/CriarPost.vue';
-
+import PostPrevia from '../views/PostPrevia.vue'
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
@@ -74,6 +74,14 @@ const routes: Array<RouteConfig> = [
     component: CriarPost,
     meta:{
       title:'CriarPost'
+    }
+  },
+  {
+    path: '/post-previa',
+    name: 'PostPrevia',
+    component: PostPrevia,
+    meta:{
+      title:'Previa'
     }
   },
   
