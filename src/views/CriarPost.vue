@@ -4,7 +4,7 @@
     <Loading v-show="loading" />
     <div class="container">
       <div :class="{ invisible: !error }" class="err-message">
-        <p><span>Error:</span>{{ this.errorMsg }}</p>
+        <p><span>Erro: </span>{{ this.errorMsg }}</p>
       </div>
       <div class="blog-info">
         <input type="text" placeholder="Escolha Um Título" v-model="blogTitulo" />
@@ -31,6 +31,7 @@
 <script>
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/storage';
+import db from '../firebase/firebaseInit'
 import Loading from "../components/Loading";
 import BlogCapaPrevia from '../components/BlogCapaPrevia'
 import Quill from "quill";
@@ -61,7 +62,6 @@ export default {
   methods: {
     fileChange(){
       this.file = this.$refs.blogFoto.files[0];
-      console.log(this.file)
       const nomeArquivo = this.file.name;
       this.$store.commit("mudarNomeArquivo", nomeArquivo);
       this.$store.commit("criarArquivoURL", URL.createObjectURL(this.file));
@@ -88,7 +88,53 @@ export default {
       );
     },
     uploadBlog(){
-
+      if (this.blogTitulo.length !== 0 && this.blogHTML.length !== 0) {
+        if (this.file) {
+          this.loading = true;
+          const storageRef = firebase.storage().ref();
+          const docRef = storageRef.child(`documents/BlogFotosCapa/${this.$store.state.blogNomeFoto}`);
+          docRef.put(this.file).on(
+            "state_changed",
+            (snapshot) => {
+              console.log(snapshot);
+            },
+            (err) => {
+              console.log(err);
+              this.loading = false;
+            },
+            async () => {
+              const downloadURL = await docRef.getDownloadURL();
+              const timestamp = await Date.now();
+              const dataBase = await db.collection("blogPosts").doc();
+              await dataBase.set({
+                blogID: dataBase.id,
+                blogHTML: this.blogHTML,
+                blogFotoCapa: downloadURL,
+                blogNomeFotoCapa: this.blogNomeFoto,
+                blogTitulo: this.blogTitulo,
+                perfilId: this.perfilId,
+                data: timestamp,
+              });
+              //await this.$store.dispatch("getPost");
+              this.loading = false;
+              this.$router.push({ name: "VerPost", params: { blogid: dataBase.id } });
+            }
+          );
+          return;
+        }
+        this.error = true;
+        this.errorMsg = "Verifique se foi selecionado uma foto de capa";
+        setTimeout(() => {
+          this.error = false;
+        }, 5000);
+        return;
+      }
+      this.error = true;
+      this.errorMsg = "Verifique se o título ou conteúdo do blog foi preenchido";
+      setTimeout(() => {
+        this.error = false;
+      }, 5000);
+      return;
     }
   },
   computed: {
