@@ -6,7 +6,7 @@
                 <h2 v-else>{{ post.blogTitulo }}</h2>
                 <p v-if="post.telaBemVindo">{{ post.blogPost }}</p>
                 <p class="content-prev" v-else v-html="post.blogHTML"></p>
-                <router-link class="link link-light" v-if="post.telaBemVindo" to="#">
+                <router-link class="link link-light" v-if="post.telaBemVindo" :to="{name: 'Login'}">
                     Login <v-icon class="arrow arrow-light"> mdi-arrow-right</v-icon>
                 </router-link>
                 <router-link class="link link-light" v-else to="#">
