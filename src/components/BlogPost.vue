@@ -3,9 +3,9 @@
         <div class="blog-content">
             <div>
                 <h2 v-if="post.telaBemVindo">{{ post.titulo }}</h2>
-                <h2 v-else>{{ post.titulo }}</h2>
+                <h2 v-else>{{ post.blogTitulo }}</h2>
                 <p v-if="post.telaBemVindo">{{ post.blogPost }}</p>
-                <p class="content-prev" v-else>{{ post.blogHtml }}</p>
+                <p class="content-prev" v-else v-html="post.blogHTML"></p>
                 <router-link class="link link-light" v-if="post.telaBemVindo" to="#">
                     Login <v-icon class="arrow arrow-light"> mdi-arrow-right</v-icon>
                 </router-link>
@@ -17,7 +17,7 @@
         </div>
         <div class="blog-photo">
                 <img  v-if="post.telaBemVindo" :src="require(`../assets/blogPhotos/${post.foto}.jpg`)" alt="">
-                <img  v-else :src="require(`../assets/blogPhotos/${post.blogFotoCapa}.jpg`)" alt="">
+                <img  v-else :src="post.blogCardCapa" alt="">
             </div>
     </div>
 </template>

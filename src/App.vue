@@ -74,6 +74,7 @@ export default Vue.extend({
       }
     })
     this.verificarRota();
+    this.$store.dispatch("listarPosts");
   },
   methods:{
     verificarRota(){

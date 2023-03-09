@@ -8,10 +8,10 @@
                 <v-icon class="delete">mdi-trash-can</v-icon>
             </div>
         </div>
-        <img :src="require(`../assets/blogCards/${post.blogCardCapa}.jpg`)" alt="">
+        <img :src="post.blogCardCapa" alt="">
         <div class="informacao">
             <h4>{{ post.blogTitulo }}</h4>
-            <h6>Postado em: {{ post.blogData }}</h6>
+            <h6>Postado em: {{ new Date( post.blogData).toLocaleString("pt-br", {dataStyle:"long"}) }}</h6>
             <router-link class="link" to="#"> Ver post <v-icon class="arrow"> mdi-arrow-right</v-icon></router-link>
 
         </div>
