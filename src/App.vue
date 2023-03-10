@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app v-if="$store.state.postCarregado">
     <!-- <v-app-bar
       app
       color="danger"
@@ -40,11 +40,11 @@
 
     </v-app-bar> -->
 
-    <v-main>
+    <!-- <v-main> -->
       <Navigation v-if="navegacao" />
       <router-view/>
       <FooterVue v-if="navegacao"/>
-    </v-main>
+    <!-- </v-main> -->
   </v-app>
 </template>
 
