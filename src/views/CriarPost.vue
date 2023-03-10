@@ -115,9 +115,9 @@ export default {
                 perfilId: this.perfilId,
                 data: timestamp,
               });
-              //await this.$store.dispatch("getPost");
+              await this.$store.dispatch("listarPosts");
               this.loading = false;
-              this.$router.push({ name: "VerPost", params: { blogid: dataBase.id } });
+              this.$router.push({ name: "VerPost", params: { blogId: dataBase.id } });
             }
           );
           return;

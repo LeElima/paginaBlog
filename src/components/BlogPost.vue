@@ -9,7 +9,7 @@
                 <router-link class="link link-light" v-if="post.telaBemVindo" :to="{name: 'Login'}">
                     Login <v-icon class="arrow arrow-light"> mdi-arrow-right</v-icon>
                 </router-link>
-                <router-link class="link link-light" v-else to="#">
+                <router-link class="link link-light" v-else :to="{ name: 'VerPost', params: { blogId: post.blogID}}">
                     Ver Post <v-icon class="arrow">mdi-arrow-right</v-icon>
                 </router-link>
             </div>

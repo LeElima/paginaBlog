@@ -86,7 +86,7 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
-    path: '/ver-post',
+    path: '/ver-post/:blogId',
     name: 'VerPost',
     component: VerPost,
     meta:{
