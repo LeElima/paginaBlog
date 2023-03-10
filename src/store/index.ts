@@ -16,7 +16,9 @@ export default new Vuex.Store({
       {blogTitulo:"Blog Card 3", blogCardCapa:"stock-3", blogData:"30 de Maio de 2022"},
       {blogTitulo:"Blog Card 4", blogCardCapa:"stock-4", blogData:"30 de Maio de 2022"},
     ],
-    postCarregado: null,
+    blogPosts: [],
+
+    postCarregado: false,
     blogHTML: "Escreva o conteúdo aqui",
     blogTitulo: "",
     blogNomeFoto: "",
@@ -31,6 +33,14 @@ export default new Vuex.Store({
     perfilUsuario: "",
     perfilId: "",
     perfilIniciais: "",
+  },
+  getters: {
+    blogPostsFeed(state) {
+      return state.blogPosts.slice(0, 2);
+    },
+    blogPostsCards(state) {
+      return state.blogPosts.slice(2, 6);
+    },
   },
   mutations: {
     novoBlogPost(state, payload) {
@@ -83,10 +93,30 @@ export default new Vuex.Store({
   },
   actions: {
     async getUsuarioAtual({commit}){
-      const dataBase = db.collection("users").doc(firebase.auth().currentUser?.uid);
+      const dataBase = await db.collection("users").doc(firebase.auth().currentUser?.uid);
       const resultadoDb = await dataBase.get();
       commit("setPerfilInfo", resultadoDb);
       commit("setPerfilIniciais");
+    },
+    async listarPosts({state}){
+      const dataBase = await db.collection("blogPosts").orderBy('data', 'desc');
+      const resultadoDb = await dataBase.get();
+      var posts : any[] = [];
+      resultadoDb.forEach((doc)=>{
+        if (!state.blogPosts.some((post:any) => post!.blogID === doc.id)) {
+          const data:any = {
+            blogID: doc.data().blogID,
+            blogHTML: doc.data().blogHTML,
+            blogCardCapa: doc.data().blogFotoCapa,
+            blogTitulo: doc.data().blogTitulo,
+            blogData: doc.data().data,
+            blogNomeFotoCapa: doc.data().blogNomeFotoCapa,
+          };
+          state.blogPosts!.push(data as never);
+        }
+      })
+      state.postCarregado = true;
+      console.log(state.blogPosts)
     },
     async atualizarUsuario({commit, state}){
       const dataBase = await  db.collection("users").doc(state.perfilId);
