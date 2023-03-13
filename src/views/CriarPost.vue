@@ -4,7 +4,7 @@
     <Loading v-show="loading" />
     <div class="container">
       <div :class="{ invisible: !error }" class="err-message">
-        <p><span>Error:</span>{{ this.errorMsg }}</p>
+        <p><span>Erro: </span>{{ this.errorMsg }}</p>
       </div>
       <div class="blog-info">
         <input type="text" placeholder="Escolha Um Título" v-model="blogTitulo" />
@@ -22,13 +22,16 @@
       </div>
       <div class="blog-actions">
         <button @click="uploadBlog">Publicar Blog</button>
-        <router-link class="router-button" :to="{ name: 'BlogPreview' }">Prévia Post</router-link>
+        <router-link class="router-button" :to="{ name: 'PostPrevia' }">Prévia Post</router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/storage';
+import db from '../firebase/firebaseInit'
 import Loading from "../components/Loading";
 import BlogCapaPrevia from '../components/BlogCapaPrevia'
 import Quill from "quill";
@@ -59,7 +62,6 @@ export default {
   methods: {
     fileChange(){
       this.file = this.$refs.blogFoto.files[0];
-      console.log(this.file)
       const nomeArquivo = this.file.name;
       this.$store.commit("mudarNomeArquivo", nomeArquivo);
       this.$store.commit("criarArquivoURL", URL.createObjectURL(this.file));
@@ -67,11 +69,72 @@ export default {
     abrirPrevia(){
       this.$store.commit("abrirFotoPrevia");
     },
-    imageHandler(){
-
+    imageHandler(file, Editor, cursorLocation, resetUploader) {
+      const storageRef = firebase.storage().ref();
+      const docRef = storageRef.child(`documents/blogPostFotos/${file.name}`);
+      docRef.put(file).on(
+        "state_changed",
+        (snapshot) => {
+          console.log(snapshot);
+        },
+        (err) => {
+          console.log(err);
+        },
+        async () => {
+          const downloadURL = await docRef.getDownloadURL();
+          Editor.insertEmbed(cursorLocation, "image", downloadURL);
+          resetUploader();
+        }
+      );
     },
     uploadBlog(){
-
+      if (this.blogTitulo.length !== 0 && this.blogHTML.length !== 0) {
+        if (this.file) {
+          this.loading = true;
+          const storageRef = firebase.storage().ref();
+          const docRef = storageRef.child(`documents/BlogFotosCapa/${this.$store.state.blogNomeFoto}`);
+          docRef.put(this.file).on(
+            "state_changed",
+            (snapshot) => {
+              console.log(snapshot);
+            },
+            (err) => {
+              console.log(err);
+              this.loading = false;
+            },
+            async () => {
+              const downloadURL = await docRef.getDownloadURL();
+              const timestamp = await Date.now();
+              const dataBase = await db.collection("blogPosts").doc();
+              await dataBase.set({
+                blogID: dataBase.id,
+                blogHTML: this.blogHTML,
+                blogFotoCapa: downloadURL,
+                blogNomeFotoCapa: this.blogNomeFoto,
+                blogTitulo: this.blogTitulo,
+                perfilId: this.perfilId,
+                data: timestamp,
+              });
+              await this.$store.dispatch("listarPosts");
+              this.loading = false;
+              this.$router.push({ name: "VerPost", params: { blogId: dataBase.id } });
+            }
+          );
+          return;
+        }
+        this.error = true;
+        this.errorMsg = "Verifique se foi selecionado uma foto de capa";
+        setTimeout(() => {
+          this.error = false;
+        }, 5000);
+        return;
+      }
+      this.error = true;
+      this.errorMsg = "Verifique se o título ou conteúdo do blog foi preenchido";
+      setTimeout(() => {
+        this.error = false;
+      }, 5000);
+      return;
     }
   },
   computed: {

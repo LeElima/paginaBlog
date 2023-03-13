@@ -5,7 +5,7 @@
             <span>Modo edição</span>
             <input type="checkbox" v-model="modoEdicao">
         </div>
-        <BlogCard :post="post" v-for="(post, index) in blogsCards" :key="index" />
+        <BlogCard :post="post" v-for="(post, index) in blogPosts" :key="index" />
     </div>
   </div>
 </template>
@@ -19,8 +19,8 @@ export default Vue.extend( {
         BlogCard
     },
     computed:{
-        blogsCards(){
-            return this.$store.state.blogsCards
+        blogPosts(){
+            return this.$store.state.blogPosts
         },
         modoEdicao:{
             get(){

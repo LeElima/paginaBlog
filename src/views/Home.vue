@@ -1,12 +1,12 @@
 <template>
   <div>
     <BlogPost v-if="!user" :post="telaBemVindo" />
-    <BlogPost :post="post" v-for="(post, index) in postBlog" :key="index"/>
+    <BlogPost :post="post" v-for="(post, index) in blogPostsFeed" :key="index"/>
     <div class="blog-card-wrapper">
       <div class="container">
         <h3>Veja posts mais recentes!</h3>
         <div class="blog-cards">
-          <BlogCard :post="post" v-for="(post, index) in blogsCards" :key="index" />
+          <BlogCard :post="post" v-for="(post, index) in blogPostsCards" :key="index" />
         </div>
       </div>
     </div>
@@ -61,8 +61,11 @@ export default Vue.extend({
   
   },
   computed:{
-    blogsCards(){
-      return this.$store.state.blogsCards
+    blogPostsFeed(){
+      return this.$store.getters.blogPostsFeed
+    },
+    blogPostsCards(){
+      return this.$store.getters.blogPostsCards
     },
     user(){
         return this.$store.state.user
