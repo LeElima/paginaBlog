@@ -1,27 +1,30 @@
 # paginaBlog
-Site com CRUD completo de um blog, onde é possível incluir posts novos, editar e excluir.<br/>
-É possível também se registrar, fazer login e recuperar senha.
-Todo o sitema é desenvolvido em Vue e com conexão com firebase.
+Site com CRUD completo de um blog
+Nesse projeto é um exemplo de CRUD com conexão com banco de dados.</br>
+Nele você pode:
+  - Incluir posts novos
+  - Editar Posts
+  - Editar
+  
+É possível também:
+- Se registrar
+- Fazer login 
+- Recuperar senha
 
-## Project setup
+Todo o sitema é desenvolvido em Vue e conexão feita com firebase.
+
+## Veja o site funcionando :heart_eyes:
+```
+http//:...
+```
+
+## Instalar Projeto :fire:
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compilar Projeto :fire:
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
