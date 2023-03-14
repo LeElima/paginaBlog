@@ -58,9 +58,17 @@ export default new Vuex.Store({
     abrirFotoPrevia(state){
       state.blogPreviaFoto = !state.blogPreviaFoto;
     },
-    
+    filtrarBlogPost(state, payload) {
+      state.blogPosts = state.blogPosts.filter((post:any) => post.blogID !== payload);
+    },
     alterarModoEdicao(state, payload){
       state.modoEdicao = payload;
+    },
+    setBlogState(state, payload) {
+      state.blogTitulo = payload.blogTitle;
+      state.blogHTML = payload.blogHTML;
+      state.blogArquivoFotoUrl = payload.blogCoverPhoto;
+      state.blogNomeFoto = payload.blogCoverPhotoName;
     },
     updateUser(state, payload) {
       state.user = payload;
@@ -117,6 +125,11 @@ export default new Vuex.Store({
       })
       state.postCarregado = true;
       console.log(state.blogPosts)
+    },
+    async deletarPost({commit}, payload){
+      const getPost = await db.collection("blogPosts").doc(payload);
+      await getPost.delete();
+      commit("filtrarBlogPost", payload);
     },
     async atualizarUsuario({commit, state}){
       const dataBase = await  db.collection("users").doc(state.perfilId);
