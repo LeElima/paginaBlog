@@ -10,6 +10,7 @@ import Admin from '../views/Admin.vue';
 import CriarPost from '../views/CriarPost.vue';
 import PostPrevia from '../views/PostPrevia.vue';
 import VerPost from '../views/VerPost.vue';
+import EditarBlog from '../views/EditarBlog.vue';
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
@@ -91,6 +92,14 @@ const routes: Array<RouteConfig> = [
     component: VerPost,
     meta:{
       title:'Ver Post'
+    }
+  },
+  {
+    path: '/editar/:blogId',
+    name: 'EditarBlog',
+    component: EditarBlog,
+    meta:{
+      title:'Editar'
     }
   },
   
