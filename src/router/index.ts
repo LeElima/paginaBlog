@@ -95,7 +95,7 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
-    path: '/ver-post/:blogId',
+    path: '/editar/:blogId',
     name: 'EditarBlog',
     component: EditarBlog,
     meta:{

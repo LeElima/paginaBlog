@@ -28,7 +28,7 @@ export default Vue.extend({
             this.$store.dispatch("deletarPost", this.post.blogID)
         },
         editarBlog() {
-            this.$router.push({ name: "EditarBlog", params: { blogid: this.post.blogID } });
+            this.$router.push({ name: "EditarBlog", params: { blogId: this.post.blogID } });
         },
     },
     computed:{
