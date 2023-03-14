@@ -1,10 +1,10 @@
 <template>
     <div class="blog-card">
         <div v-show="modoEdicao" class="icons">
-            <div class="icon">
+            <div class="icon" @click="editarBlog">
                 <v-icon class="edit">mdi-pencil</v-icon>
             </div>
-            <div class="icon">
+            <div class="icon" @click="deletarPost">
                 <v-icon class="delete">mdi-trash-can</v-icon>
             </div>
         </div>
@@ -22,6 +22,15 @@ import Vue from 'vue'
 export default Vue.extend({
     name:"blogCard",
     props:["post"],
+    methods:{
+        deletarPost(){
+            console.log(this.post)
+            this.$store.dispatch("deletarPost", this.post.blogID)
+        },
+        editarBlog() {
+            this.$router.push({ name: "EditarBlog", params: { blogid: this.post.blogID } });
+        },
+    },
     computed:{
         modoEdicao():any{
             return this.$store.state.modoEdicao;
