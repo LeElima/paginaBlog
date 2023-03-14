@@ -65,10 +65,10 @@ export default new Vuex.Store({
       state.modoEdicao = payload;
     },
     setBlogState(state, payload) {
-      state.blogTitulo = payload.blogTitle;
+      state.blogTitulo = payload.blogTitulo;
       state.blogHTML = payload.blogHTML;
-      state.blogArquivoFotoUrl = payload.blogCoverPhoto;
-      state.blogNomeFoto = payload.blogCoverPhotoName;
+      state.blogArquivoFotoUrl = payload.blogCardCapa;
+      state.blogNomeFoto = payload.blogNomeFotoCapa;
     },
     updateUser(state, payload) {
       state.user = payload;
@@ -125,6 +125,10 @@ export default new Vuex.Store({
       })
       state.postCarregado = true;
       console.log(state.blogPosts)
+    },
+    async updatePost({ commit, dispatch }, payload) {
+      commit("filtrarBlogPost", payload);
+      await dispatch("listarPosts");
     },
     async deletarPost({commit}, payload){
       const getPost = await db.collection("blogPosts").doc(payload);
